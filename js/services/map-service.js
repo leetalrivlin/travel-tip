@@ -54,5 +54,4 @@ function createLocation(adress, lat, lng, weather) {
   utilService.saveToStorage(KEY, locations);
   console.log(locations);
   return Promise.resolve(locations);
-  //   renderPlaces();
 }

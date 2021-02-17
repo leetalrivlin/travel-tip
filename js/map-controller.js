@@ -13,16 +13,13 @@ window.onload = () => {
   document.querySelector('.location-go-btn').addEventListener('click', () => {
     const location = document.querySelector('input[name="location-input"]')
       .value;
-    geoCodeService.getLatLng(location)
-    .then(addLocation);
+    geoCodeService.getLatLng(location).then(addLocation);
   });
-  
-  weatherService.getWeather(32.0852999, 34.78176759999999)
-  .then((weather) => {
-      renderWeather(weather)
-      mapService.initialData(weather)
-    .then(renderTable)
-    });
+
+  weatherService.getWeather(32.0852999, 34.78176759999999).then((weather) => {
+    renderWeather(weather);
+    mapService.initialData(weather).then(renderTable);
+  });
 
   initMap()
     .then(() => {
@@ -59,13 +56,13 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 }
 
 function onClickMap(lat, lng) {
-//   todo: add an adress
-weatherService.getWeather(lat, lng)
-  .then((weather) => {
-      renderWeather(weather)
-      mapService.createLocation('popo', lat, lng, weather)
-    .then(renderTable)
+  geoCodeService.getLocation(lat, lng).then((location) => {
+    renderLocationName(location.adress);
+    weatherService.getWeather(lat, lng).then((weather) => {
+      renderWeather(weather);
+      mapService.createLocation(location, lat, lng, weather).then(renderTable);
     });
+  });
 }
 
 function addMarker(loc) {
@@ -91,7 +88,7 @@ function getPosition() {
 
 function _connectGoogleApi() {
   if (window.google) return Promise.resolve();
-  const API_KEY = 'AIzaSyATvXgiBOmv7oHOuec8yoUdOx_4cxw-PYo'; //TODO: Enter your API Key
+  const API_KEY = 'AIzaSyATvXgiBOmv7oHOuec8yoUdOx_4cxw-PYo';
   var elGoogleApi = document.createElement('script');
   elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
   elGoogleApi.async = true;
@@ -105,54 +102,67 @@ function _connectGoogleApi() {
 
 function getCurrPos() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        addMarker(pos);
-        mapService.createLocation('Current Location', pos.lat, pos.lng)
-        .then(renderTable);
-        panTo(pos.lat, pos.lng);
-      });
-    }
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position);
+      const pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      addMarker(pos);
+      geoCodeService.getLocation(pos.lat, pos.lng).then(addLocation);
+      panTo(pos.lat, pos.lng);
+    });
+  }
 }
 
 function addLocation(location) {
-    weatherService.getWeather(location.lat, location.lng)
-    .then((weather) => {
-        renderWeather(weather)
-        mapService.createLocation(location.adress, location.lat, location.lng, weather)
-      .then(renderTable)
-      });
-  //render location to table
+  renderLocationName(location.adress);
+  weatherService.getWeather(location.lat, location.lng).then((weather) => {
+    renderWeather(weather);
+    mapService
+      .createLocation(location.adress, location.lat, location.lng, weather)
+      .then(renderTable);
+  });
+  panTo(location.lat, location.lng);
 }
 
-// function renderLocationName(location) {
-//     document.querySelector('.location-name').innerText = location.adress;
-// }
-
+function renderLocationName(adress) {
+  document.querySelector('.location-name').innerText = adress;
+}
 
 function renderTable(locations) {
-        let strHtml = Object.values(locations).map( location => {
-            return `<tr>
+  let strHtml = Object.values(locations)
+    .map((location) => {
+      return `<tr>
                         <td>${location.adress}</td>
                         <td>
-                            <button class="table-go-btn btn" onclick="renderPageFromLocation(location)">Go</button>
+                            <button class="table-go-btn btn" data-lat="${location.lat}" data-lng="${location.lng}" data-adress="${location.adress}" >Go</button>
                             <button class="table-delete-btn btn" onclick="removeLocation(${location.adress})">Delete</button>
                         </td>
-                     </tr>`
-        }).join('');
-    document.querySelector('.table-item').innerHTML = strHtml;
+                     </tr>`;
+    })
+    .join('');
+  document.querySelector('.table-item').innerHTML = strHtml;
+  document.querySelector('.table-go-btn').addEventListener('click', (event) => {
+    const location = {
+      adress: event.target.dataset.adress,
+      lat: event.target.dataset.lat,
+      lng: event.target.dataset.lng,
+    };
+    renderPageFromLocation(location);
+  });
 }
 
+
 function renderPageFromLocation(location) {
-    panTo(location.lat, location.lng);
+  console.log('location from go', location);
+  panTo(location.lat, location.lng);
+  renderLocationName(location.adress);
+  weatherService.getWeather(location.lat, location.lng).then(renderWeather);
 }
 
 function removeLocation(adress) {
- console.log('adress',adress);
+  console.log('adress', adress);
 }
 
 function renderWeather(weatherData) {
