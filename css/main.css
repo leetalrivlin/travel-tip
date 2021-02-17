@@ -142,7 +142,7 @@ input[name='location-input'] {
 
 .main-container {
   margin-bottom: 150px;
-  height: 80vh;
+  height: 60vh;
 }
 
 .table-container {
@@ -206,3 +206,47 @@ input[name='location-input'] {
 .btn:hover {
   opacity: 0.6;
 }
+
+@media (max-width: 1100px) {
+  .container {
+    max-width: 850px;
+  }
+}
+
+@media (max-width: 890px) {
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .map-container {
+    margin-block-end: 20px;
+  }
+
+  .info-container {
+    width: 400px;
+    order: 1;
+    margin-block-end: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-header-content,
+  .display-location-container {
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  #map {
+    width: 300px;
+    height: 300px;
+  }
+
+  .info-container {
+    width: 100%;
+  }
+}
+
+
+
