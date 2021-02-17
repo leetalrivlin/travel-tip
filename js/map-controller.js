@@ -1,4 +1,6 @@
 import { mapService } from './services/map-service.js';
+import { geoCodeService } from './services/goecode-service.js';
+import { weatherService } from './services/weather-service.js';
 
 var gMap;
 console.log('Main!');
@@ -7,10 +9,15 @@ mapService.getLocs().then((locs) => console.log('locs', locs));
 
 window.onload = () => {
   document.querySelector('.my-location-btn').addEventListener('click', () => {
-    console.log('Aha!');
     getCurrPos();
-    // panTo(35.6895, 139.6917);
   });
+  document.querySelector('.location-go-btn').addEventListener('click', () => {
+    const location = document.querySelector('input[name="location-input"]')
+      .value;
+    geoCodeService.getLatLng(location).then(addLocation);
+  });
+
+  weatherService.getWeather(32, 34).then(renderWeather);
 
   initMap()
     .then(() => {
@@ -94,7 +101,7 @@ function _connectGoogleApi() {
 }
 
 function getCurrPos() {
-//   let infoWindow = new google.maps.InfoWindow();
+  //   let infoWindow = new google.maps.InfoWindow();
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -107,6 +114,7 @@ function getCurrPos() {
         // infoWindow.open(map);
         console.log('curr pos', pos);
         addMarker(pos);
+        mapService.createLocation('Current Location', pos.lat, pos.lng);
         panTo(pos.lat, pos.lng);
       },
       () => {
@@ -127,4 +135,19 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
       : "Error: Your browser doesn't support geolocation."
   );
   infoWindow.open(map);
+}
+
+function addLocation(location) {
+  console.log(location);
+  mapService.createLocation(location.adress, location.lat, location.lng);
+  //render location to table
+}
+
+function renderWeather(weatherData) {
+  console.log(weatherData);
+  var strHtml = `<h2>Weather Data</h2>
+                    <p>Mood: ${weatherData.desc}</p>
+                    <p>Temp: ${weatherData.temp}</p>
+                    <p>feels like: ${weatherData.feelsLike}</p>`;
+  document.querySelector('.weather-container').innerHTML = strHtml;
 }

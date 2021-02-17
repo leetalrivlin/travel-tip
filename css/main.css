@@ -18,7 +18,7 @@
 
 html {
   font-family: Roboto, serif;
-  color: #626262;
+  /* color: #626262; */
   line-height: 1.714;
 }
 
@@ -66,11 +66,11 @@ a:hover {
 /* Components */
 
 .main-header {
-    background-color: #71a4b3;
+  background-color: #d3edf2;
 }
 
 .main-header-content {
-    height: 100px;
+  height: 100px;
 }
 
 .main-header .logo {
@@ -78,18 +78,43 @@ a:hover {
   font-size: 1.785rem;
 }
 
-input[name="location-input"] {
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
+input[name='location-input'] {
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin-inline-end: 10px;
 }
 
-.location-go-btn{
+.location-go-btn {
   margin-inline-end: 10px;
 }
 
 .display-location-container {
-    height: 110px;
+  height: 110px;
+}
+
+.info-container {
+  flex-basis: 50%;
+}
+
+.weather-container {
+  background-color: #d3edf2;
+  border-radius: 5px;
+  color: black;
+  padding: 25px;
+  height: 200px;
+  justify-content: center;
+  background-image: url('/img/icons-weather.png');
+  background-size: contain;
+  background-position-x: right;
+  background-position-y: top;
+  background-repeat: no-repeat;
+  justify-content: center;
+}
+
+.weather-container h2{
+  font-family: Raleway;
+  margin-bottom: 5px;
 }
 
 /* HELPERS */
@@ -101,7 +126,7 @@ input[name="location-input"] {
 }
 
 .flex.column {
-    flex-direction: column;
+  flex-direction: column;
 }
 
 .flex.space-between {
@@ -127,8 +152,13 @@ input[name="location-input"] {
 /* Button helpers */
 
 .btn {
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #d3e0ea;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #f9f5df;
+  cursor: pointer;
+}
+
+.btn:hover{
+  opacity:0.6;
 }
