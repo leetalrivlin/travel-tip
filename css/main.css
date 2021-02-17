@@ -1,3 +1,126 @@
+/* FONTS */
+
+@font-face {
+  font-family: Roboto;
+  src: url(../fonts/Roboto/Roboto-Medium.ttf);
+}
+
+@font-face {
+  font-family: Raleway;
+  src: url(../fonts/Raleway/static/Raleway-BoldItalic.ttf);
+}
+
+/* BASICS */
+
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Roboto, serif;
+  color: #626262;
+  line-height: 1.714;
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+img {
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: #afafaf;
+  border-bottom: 1px solid #afafaf;
+}
+
+a:hover {
+  border-bottom: none;
+}
+
+/* LAYOUT  */
+
+.container {
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+/* Components */
+
+.main-header {
+    height: 100px;
+    background-color: #bdbdbd;
+}
+
+.main-header .logo {
+  font-family: Raleway, serif;
+  font-size: 1.785rem;
+}
+
+input[name="location-input"] {
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.display-location-container {
+    height: 110px;
+}
+
+/* HELPERS */
+
+/* flex helpers */
+
+.flex {
+  display: flex;
+}
+
+.flex.column {
+    flex-direction: column;
+}
+
+.flex.space-between {
+  justify-content: space-between;
+}
+
+.flex.align-center {
+  align-items: center;
+}
+
+.container-bg {
+  background-color: #f0f0f0;
+}
+
+/* list helpers */
+
+.clean-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+/* Button helpers */
+
+.btn {
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #d3e0ea;
 }
