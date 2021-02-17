@@ -143,8 +143,8 @@ function addLocation(location) {
 function renderWeather(weatherData) {
   console.log(weatherData);
   var strHtml = `<h2>Weather Data</h2>
-                    <p>${weatherData.desc}</p>
-                    <p>Temp:${weatherData.temp}</p>
-                    <p>feels like:${weatherData.feelsLike}</p>`;
+                    <p>Mood: ${weatherData.desc}</p>
+                    <p>Temp: ${weatherData.temp}</p>
+                    <p>feels like: ${weatherData.feelsLike}</p>`;
   document.querySelector('.weather-container').innerHTML = strHtml;
 }
