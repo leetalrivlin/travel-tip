@@ -1,4 +1,4 @@
-import { mapService } from './services/map-service.js'
+import { mapService } from './services/map-service.js';
 
 var gMap;
 console.log('Main!');
@@ -40,7 +40,22 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
             })
             console.log('Map!', gMap);
         })
+        .then(() => {
+            google.maps.event.addListener(map, 'click', function (event) {
+                let lat = event.latLng.lat();
+                let lng = event.latLng.lng();
+            
+                console.log('lat', lat, 'lng', lng);
+                onClickMap(lat, lng);
+              });
+            }
+        )
 }
+
+function onClickMap(lat, lng) {
+    var placeName = prompt('Enter place name');
+    mapService.createLocation(placeName, lat, lng);
+  }
 
 function addMarker(loc) {
     var marker = new google.maps.Marker({
