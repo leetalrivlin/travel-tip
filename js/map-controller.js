@@ -17,8 +17,11 @@ window.onload = () => {
     geoCodeService.getLatLng(location)
     .then(addLocation);
   });
+    mapService.initialData()
+    .then(renderTable)
 
-  weatherService.getWeather(32, 34).then(renderWeather);
+    weatherService.getWeather(32.08, 34.78)
+    .then(renderWeather);
 
   initMap()
     .then(() => {
@@ -61,8 +64,9 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 function onClickMap(lat, lng) {
     
   console.log('map was clicked!');
-  var locationName = prompt('Enter place name');
-  mapService.createLocation(locationName, lat, lng);
+//   todo: add an adress
+  mapService.createLocation('Popo', lat, lng)
+  .then(renderTable);
 }
 
 function addMarker(loc) {
@@ -115,7 +119,8 @@ function getCurrPos() {
         // infoWindow.open(map);
         console.log('curr pos', pos);
         addMarker(pos);
-        mapService.createLocation('Current Location', pos.lat, pos.lng);
+        mapService.createLocation('Current Location', pos.lat, pos.lng)
+        .then(renderTable);
         panTo(pos.lat, pos.lng);
       },
       () => {
@@ -145,19 +150,26 @@ function addLocation(location) {
   //render location to table
 }
 
-function renderTable() {
+function renderTable(locations) {
     console.log('Rendering the table');
-let locations = getLocations();
-        let strHtml = locations.map( location => {
+        let strHtml = Object.values(locations).map( location => {
             return `<tr>
                         <td>${location.adress}</td>
                         <td>
-                            <button class="table-go-btn btn" onclick="panTo(${location.lat}, ${location.lng})">Go</button>
+                            <button class="table-go-btn btn" onclick="renderPageFromLocation(location)">Go</button>
                             <button class="table-delete-btn btn" onclick="removeLocation(${location.adress})">Delete</button>
                         </td>
                      </tr>`
         }).join('');
     document.querySelector('.table-item').innerHTML = strHtml;
+}
+
+function renderPageFromLocation(location) {
+    panTo(location.lat, location.lng);
+}
+
+function removeLocation(adress) {
+ console.log('adress',adress);
 }
 
 function renderWeather(weatherData) {

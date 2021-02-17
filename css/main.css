@@ -65,6 +65,24 @@ a:hover {
 
 /* Components */
 
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+ }
+ ::-webkit-scrollbar-thumb {
+  background: linear-gradient(13deg, #b3b3b3 14%,#dbdbdb 64%);
+  border-radius: 10px;
+ }
+ ::-webkit-scrollbar-thumb:hover{
+  background: linear-gradient(13deg, #DBDBDB 14%,#b3b3b3 64%);
+ }
+ ::-webkit-scrollbar-track{
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: inset 7px 10px 12px #f0f0f0;
+ }
+ 
+
 .main-header {
   background-color: #d3e0ea;
 }
@@ -120,6 +138,27 @@ input[name='location-input'] {
 .weather-container h2 {
   font-family: Raleway;
   margin-bottom: 5px;
+}
+
+.main-container {
+  margin-bottom: 150px;
+  height: 80vh;
+}
+
+.table-container {
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.location-table {
+  width: 100%;
+}
+
+.table-item td {
+  text-align: center;
+  border-radius: 5px;
+  background-color:  #d3e0ea;
+  padding: 10px;
 }
 
 /* HELPERS */

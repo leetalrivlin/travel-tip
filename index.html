@@ -1,61 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TravelTip</title>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TravelTip</title>
-  <link rel="stylesheet" href="css/main.css" />
-</head>
+  <body>
+    <header class="main-header">
+      <section
+        class="main-header-content container flex space-between align-center"
+      >
+        <h2 class="logo">TravelTip</h2>
+        <div class="search-location-container flex align-center">
+          <input type="search" name="location-input" />
+          <button class="location-go-btn btn">Go</button>
+          <button class="my-location-btn btn">My Location</button>
+        </div>
+      </section>
+    </header>
 
-<body>
-  <header class="main-header">
-    <section class="main-header-content container flex space-between align-center">
-      <h2 class="logo">TravelTip</h2>
-      <div class="search-location-container flex align-center">
-        <input type="search" name="location-input" />
-        <button class="location-go-btn btn">Go</button>
-        <button class="my-location-btn btn">My Location</button>
+    <section class="display-container">
+      <div
+        class="display-location-container container flex space-between align-center"
+      >
+        <p><span>Location:</span>Lorevdvdlvld</p>
+        <button class="copy-location-btn btn">Copy Location</button>
       </div>
-
-    </section>
-  </header>
-
-  <section class="display-container">
-    <div class="display-location-container container flex space-between align-center">
-      <p><span>Location:</span>Lorevdvdlvld</p>
-      <button class="copy-location-btn btn">Copy Location</button>
-    </div>
-  </section>
-
-
-  <main class="main-container container flex space-between">
-    <section class="info-container flex column space-between">
-      <div class="weather-container flex column">
-      </div>
-      <table class="location-table">
-        <thead>
-          <th>Location</th>
-          <th>Action</th>
-        </thead>
-        <tbody class="table-item">
-          <!-- <tr>
-            <td>Kfar-Saba</td>
-            <td>
-              <button class="table-go-btn btn">Go</button>
-              <button class="table-delete-btn btn">Delete</button>
-            </td>
-          </tr> -->
-        </tbody>
-      </table>
     </section>
 
-    <section class="map-container">
-      <div id="map" style="width: 400px; height: 400px"></div>
-    </section>
-  </main>
-  <script src="lib/axios.js"></script>
-  <script type="module" src="js/map-controller.js"></script>
-</body>
+    <main class="main-container container flex space-between">
+      <section class="info-container flex column space-between">
+        <div class="weather-container flex column"></div>
+        
+        <div class="table-container">
+          <table class="location-table">
+            <thead>
+              <th>Location</th>
+              <th>Action</th>
+            </thead>
+            <tbody class="table-item"></tbody>
+          </table>
+        </div>
+      </section>
 
+      <section class="map-container">
+        <div id="map" style="width: 400px; height: 400px"></div>
+      </section>
+    </main>
+    <script src="lib/axios.js"></script>
+    <script type="module" src="js/map-controller.js"></script>
+  </body>
 </html>

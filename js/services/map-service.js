@@ -3,11 +3,30 @@ import { utilService } from './util-service.js';
 export const mapService = {
   getLocs,
   createLocation,
+  initialData
 };
 
 var locs = [{ lat: 11.22, lng: 22.11 }];
 const KEY = 'locationsDB';
-var locations = utilService.loadFromStorage(KEY) || {};
+var locations;
+
+function initialData() {
+  if (!utilService.loadFromStorage(KEY)) {
+    locations = {
+      telAviv: {
+        createdAt: Date.now(),
+        id: '0egt',
+        lat: 32.0852999,
+        lng: 34.78176759999999,
+        adress: 'Tel Aviv-Yafo, Israel',
+        updatedAt: 2,
+        weather: 1,
+      },
+    };
+    utilService.saveToStorage(KEY, locations);
+}
+return Promise.resolve(utilService.loadFromStorage(KEY));
+}
 
 function getLocs() {
   return new Promise((resolve, reject) => {
@@ -17,21 +36,22 @@ function getLocs() {
   });
 }
 
-function createLocation(locationName, lat, lng) {
-  if (locations && locations[locationName]) {
-    return locations[locationName];
+function createLocation(adress, lat, lng) {
+  if (locations && locations[adress]) {
+    return Promise.resolve(locations);
   }
   let location = {
     id: utilService.getRandomId(),
-    locationName,
+    adress,
     lat,
     lng,
-    weather:1,
+    weather: 1,
     createdAt: Date.now(),
-    updatedAt:2,
+    updatedAt: 2,
   };
-  locations[locationName] = location;
+  locations[adress] = location;
   utilService.saveToStorage(KEY, locations);
   console.log(locations);
+  return Promise.resolve(locations);
   //   renderPlaces();
 }
