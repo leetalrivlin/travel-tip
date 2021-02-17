@@ -103,6 +103,8 @@ function getCurrPos() {
         // infoWindow.setPosition(pos);
         // infoWindow.setContent('Location found.');
         // infoWindow.open(map);
+        console.log('curr pos', pos);
+        addMarker(pos);
         panTo(pos.lat, pos.lng);
       },
       () => {
