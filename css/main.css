@@ -24,6 +24,7 @@ html {
 
 body {
   margin: 0;
+  background-color: #f6f5f5;
 }
 
 h1,
@@ -65,8 +66,11 @@ a:hover {
 /* Components */
 
 .main-header {
+    background-color: #71a4b3;
+}
+
+.main-header-content {
     height: 100px;
-    background-color: #bdbdbd;
 }
 
 .main-header .logo {
@@ -78,6 +82,10 @@ input[name="location-input"] {
     border: none;
     border-radius: 5px;
     padding: 10px;
+}
+
+.location-go-btn{
+  margin-inline-end: 10px;
 }
 
 .display-location-container {

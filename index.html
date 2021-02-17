@@ -1,55 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ES6</title>
-    <link rel="stylesheet" href="css/main.css" />
-  </head>
-  <body>
-    <header class="main-header container flex space-between align-center">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TravelTip</title>
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+  <header class="main-header">
+    <section class="main-header-content container flex space-between align-center">
       <h2 class="logo">TravelTip</h2>
       <div class="search-location-container flex align-center">
         <input type="search" name="location-input" />
         <button class="location-go-btn btn">Go</button>
         <button class="my-location-btn btn">My Location</button>
       </div>
-    </header>
 
-    <section class="display-location-container container flex space-between align-center">
-      <p><span>Location:</span>Lorevdvdlvld</p>
-      <button class="copy-location-btn btn">Copy Location</button>
+    </section>
+  </header>
+
+  <section class="display-location-container container flex space-between align-center">
+    <p><span>Location:</span>Lorevdvdlvld</p>
+    <button class="copy-location-btn btn">Copy Location</button>
+  </section>
+
+  <main class="main-container container flex space-between align-center">
+    <section class="info-container flex column space-between">
+      <div class="weather-container">
+        weather
+      </div>
+      <table class="location-table">
+        <thead>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Action</th>
+        </thead>
+        <tbody class="table-item">
+          <tr>
+            <td>Home</td>
+            <td>Kfar-Saba</td>
+            <td>
+              <button class="table-go-btn btn">Go</button>
+              <button class="table-delete-btn btn">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </section>
 
-    <main class="main-container container flex space-between align-center">
-      <section class="info-container flex column space-between">
-        <div class="weather-container">
-          weather
-        </div>
-        <table class="location-table">
-          <thead>
-            <th>Name</th>
-            <th>Location</th>
-            <th>Action</th>
-          </thead>
-          <tbody class="table-item">
-            <tr>
-              <td>Home</td>
-              <td>Kfar-Saba</td>
-              <td>
-                <button class="table-go-btn btn">Go</button>
-                <button class="table-delete-btn btn">Delete</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+    <section class="map-container">
+      <div id="map" style="width: 400px; height: 400px"></div>
+    </section>
+  </main>
 
-      <section class="map-container">
-        <div id="map" style="width: 400px; height: 400px"></div>
-      </section>
-    </main>
+  <script type="module" src="js/map-controller.js"></script>
+</body>
 
-    <script type="module" src="js/map-controller.js"></script>
-  </body>
 </html>
