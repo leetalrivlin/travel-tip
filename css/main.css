@@ -156,4 +156,9 @@ input[name='location-input'] {
   border-radius: 5px;
   padding: 10px;
   background-color: #f9f5df;
+  cursor: pointer;
+}
+
+.btn:hover{
+  opacity:0.6;
 }

@@ -112,6 +112,7 @@ function getCurrPos() {
         // infoWindow.open(map);
         console.log('curr pos', pos);
         addMarker(pos);
+        mapService.createLocation('Current Location', pos.lat, pos.lng);
         panTo(pos.lat, pos.lng);
       },
       () => {

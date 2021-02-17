@@ -34,5 +34,4 @@ function createLocation(locationName, lat, lng) {
   utilService.saveToStorage(KEY, locations);
   console.log(locations);
   //   renderPlaces();
-  //   return gPlaces;
 }
