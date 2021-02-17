@@ -14,7 +14,8 @@ window.onload = () => {
   document.querySelector('.location-go-btn').addEventListener('click', () => {
     const location = document.querySelector('input[name="location-input"]')
       .value;
-    geoCodeService.getLatLng(location).then(addLocation);
+    geoCodeService.getLatLng(location)
+    .then(addLocation);
   });
 
   weatherService.getWeather(32, 34).then(renderWeather);
@@ -139,8 +140,24 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 function addLocation(location) {
   console.log(location);
-  mapService.createLocation(location.adress, location.lat, location.lng);
+  mapService.createLocation(location.adress, location.lat, location.lng)
+  .then(renderTable);
   //render location to table
+}
+
+function renderTable() {
+    console.log('Rendering the table');
+let locations = getLocations();
+        let strHtml = locations.map( location => {
+            return `<tr>
+                        <td>${location.adress}</td>
+                        <td>
+                            <button class="table-go-btn btn" onclick="panTo(${location.lat}, ${location.lng})">Go</button>
+                            <button class="table-delete-btn btn" onclick="removeLocation(${location.adress})">Delete</button>
+                        </td>
+                     </tr>`
+        }).join('');
+    document.querySelector('.table-item').innerHTML = strHtml;
 }
 
 function renderWeather(weatherData) {
