@@ -41,6 +41,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
     .then(() => {
       console.log('creating event listener');
       gMap.addListener('click', (event) => {
+        addMarker(event.latLng);
         let lat = event.latLng.lat();
         let lng = event.latLng.lng();
 
@@ -50,13 +51,14 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 }
 
 function onClickMap(lat, lng) {
+    
   console.log('map was clicked!');
   var locationName = prompt('Enter place name');
   mapService.createLocation(locationName, lat, lng);
 }
 
 function addMarker(loc) {
-  var marker = new google.maps.Marker({
+  let marker = new google.maps.Marker({
     position: loc,
     map: gMap,
     title: 'Hello World!',
