@@ -66,7 +66,7 @@ a:hover {
 /* Components */
 
 .main-header {
-  background-color: #d3edf2;
+  background-color: #d3e0ea;
 }
 
 .main-header-content {
@@ -89,8 +89,13 @@ input[name='location-input'] {
   margin-inline-end: 10px;
 }
 
+.display-container {
+  background-color: white;
+}
+
 .display-location-container {
   height: 110px;
+  margin-block-end: 20px;
 }
 
 .info-container {
@@ -98,7 +103,7 @@ input[name='location-input'] {
 }
 
 .weather-container {
-  background-color: #d3edf2;
+  background-color: #d3e0ea;
   border-radius: 5px;
   color: black;
   padding: 25px;
@@ -112,7 +117,7 @@ input[name='location-input'] {
   justify-content: center;
 }
 
-.weather-container h2{
+.weather-container h2 {
   font-family: Raleway;
   margin-bottom: 5px;
 }
@@ -155,10 +160,10 @@ input[name='location-input'] {
   border: none;
   border-radius: 5px;
   padding: 10px;
-  background-color: #f9f5df;
+  background-color: #f6f5f5;
   cursor: pointer;
 }
 
-.btn:hover{
-  opacity:0.6;
+.btn:hover {
+  opacity: 0.6;
 }
