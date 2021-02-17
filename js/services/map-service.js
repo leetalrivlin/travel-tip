@@ -1,5 +1,4 @@
 import { utilService } from './util-service.js';
-import { weatherService } from './weather-service.js';
 
 export const mapService = {
   getLocs,
