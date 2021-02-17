@@ -26,10 +26,9 @@
     <button class="copy-location-btn btn">Copy Location</button>
   </section>
 
-  <main class="main-container container flex space-between align-center">
+  <main class="main-container container flex space-between">
     <section class="info-container flex column space-between">
-      <div class="weather-container">
-        weather
+      <div class="weather-container flex column">
       </div>
       <table class="location-table">
         <thead>
@@ -54,7 +53,7 @@
       <div id="map" style="width: 400px; height: 400px"></div>
     </section>
   </main>
-
+  <script src="lib/axios.js"></script>
   <script type="module" src="js/map-controller.js"></script>
 </body>
 

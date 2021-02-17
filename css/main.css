@@ -92,6 +92,21 @@ input[name="location-input"] {
     height: 110px;
 }
 
+.info-container{
+  flex-basis: 50%;
+}
+
+.weather-container{
+  color: black;
+  padding: 5px;
+  height: 200px;
+  justify-content: center;
+  background-image: url('/img/clouds.jpg');
+  background-size: cover;
+  position: relative;
+
+}
+
 /* HELPERS */
 
 /* flex helpers */
