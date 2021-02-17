@@ -8,7 +8,7 @@ mapService.getLocs()
 
 window.onload = () => {
     
-    document.querySelector('.btn').addEventListener('click', (ev) => {
+    document.querySelector('.my-location-btn').addEventListener('click', (ev) => {
         console.log('Aha!', ev.target);
         panTo(35.6895, 139.6917);
     })
