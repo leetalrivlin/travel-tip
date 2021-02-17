@@ -3,7 +3,6 @@ import { geoCodeService } from './services/goecode-service.js';
 import { weatherService } from './services/weather-service.js';
 
 var gMap;
-console.log('Main!');
 
 mapService.getLocs().then((locs) => console.log('locs', locs));
 
@@ -17,11 +16,13 @@ window.onload = () => {
     geoCodeService.getLatLng(location)
     .then(addLocation);
   });
-    mapService.initialData()
+  
+  weatherService.getWeather(32.0852999, 34.78176759999999)
+  .then((weather) => {
+      renderWeather(weather)
+      mapService.initialData(weather)
     .then(renderTable)
-
-    weatherService.getWeather(32.08, 34.78)
-    .then(renderWeather);
+    });
 
   initMap()
     .then(() => {
@@ -39,18 +40,14 @@ window.onload = () => {
 };
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
-  console.log('InitMap');
   return _connectGoogleApi()
     .then(() => {
-      console.log('google available');
       gMap = new google.maps.Map(document.querySelector('#map'), {
         center: { lat, lng },
         zoom: 15,
       });
-      console.log('Map!', gMap);
     })
     .then(() => {
-      console.log('creating event listener');
       gMap.addListener('click', (event) => {
         addMarker(event.latLng);
         let lat = event.latLng.lat();
@@ -62,11 +59,13 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 }
 
 function onClickMap(lat, lng) {
-    
-  console.log('map was clicked!');
 //   todo: add an adress
-  mapService.createLocation('Popo', lat, lng)
-  .then(renderTable);
+weatherService.getWeather(lat, lng)
+  .then((weather) => {
+      renderWeather(weather)
+      mapService.createLocation('popo', lat, lng, weather)
+    .then(renderTable)
+    });
 }
 
 function addMarker(loc) {
@@ -85,7 +84,6 @@ function panTo(lat, lng) {
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
 function getPosition() {
-  console.log('Getting Pos');
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
@@ -106,7 +104,6 @@ function _connectGoogleApi() {
 }
 
 function getCurrPos() {
-  //   let infoWindow = new google.maps.InfoWindow();
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -114,44 +111,30 @@ function getCurrPos() {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
-        // infoWindow.setPosition(pos);
-        // infoWindow.setContent('Location found.');
-        // infoWindow.open(map);
-        console.log('curr pos', pos);
         addMarker(pos);
         mapService.createLocation('Current Location', pos.lat, pos.lng)
         .then(renderTable);
         panTo(pos.lat, pos.lng);
-      },
-      () => {
-        // handleLocationError(true, infoWindow, map.getCenter());
-      }
-    );
-  } else {
-    // Browser doesn't support Geolocation
-    // handleLocationError(false, infoWindow, map.getCenter());
-  }
-}
-
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(
-    browserHasGeolocation
-      ? 'Error: The Geolocation service failed.'
-      : "Error: Your browser doesn't support geolocation."
-  );
-  infoWindow.open(map);
+      });
+    }
 }
 
 function addLocation(location) {
-  console.log(location);
-  mapService.createLocation(location.adress, location.lat, location.lng)
-  .then(renderTable);
+    weatherService.getWeather(location.lat, location.lng)
+    .then((weather) => {
+        renderWeather(weather)
+        mapService.createLocation(location.adress, location.lat, location.lng, weather)
+      .then(renderTable)
+      });
   //render location to table
 }
 
+// function renderLocationName(location) {
+//     document.querySelector('.location-name').innerText = location.adress;
+// }
+
+
 function renderTable(locations) {
-    console.log('Rendering the table');
         let strHtml = Object.values(locations).map( location => {
             return `<tr>
                         <td>${location.adress}</td>

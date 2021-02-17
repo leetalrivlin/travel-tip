@@ -1,4 +1,5 @@
 import { utilService } from './util-service.js';
+import { weatherService } from './weather-service.js';
 
 export const mapService = {
   getLocs,
@@ -10,7 +11,7 @@ var locs = [{ lat: 11.22, lng: 22.11 }];
 const KEY = 'locationsDB';
 var locations;
 
-function initialData() {
+function initialData(weather) {
   if (!utilService.loadFromStorage(KEY)) {
     locations = {
       telAviv: {
@@ -20,7 +21,7 @@ function initialData() {
         lng: 34.78176759999999,
         adress: 'Tel Aviv-Yafo, Israel',
         updatedAt: 2,
-        weather: 1,
+        weather,
       },
     };
     utilService.saveToStorage(KEY, locations);
@@ -36,7 +37,7 @@ function getLocs() {
   });
 }
 
-function createLocation(adress, lat, lng) {
+function createLocation(adress, lat, lng, weather) {
   if (locations && locations[adress]) {
     return Promise.resolve(locations);
   }
@@ -45,7 +46,7 @@ function createLocation(adress, lat, lng) {
     adress,
     lat,
     lng,
-    weather: 1,
+    weather,
     createdAt: Date.now(),
     updatedAt: 2,
   };

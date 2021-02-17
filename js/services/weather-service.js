@@ -14,8 +14,8 @@ function getWeather(lat, lng) {
       console.log('Service Got Res:', res);
       const weatherData = {
         desc: res.data.weather[0].description,
-        temp: res.data.main.temp,
-        feelsLike: res.data.main.feels_like,
+        temp: Math.round(res.data.main.temp),
+        feelsLike: Math.round(res.data.main.feels_like),
       };
       console.log(weatherData);
       return weatherData;
